@@ -53,6 +53,18 @@ public class PayApiWebViewFragment extends Fragment {
                     wv.clearHistory();
                 } else {
                     nextClose = url.matches("https://(staging-)?input.payapi.io/v[0-9]+/secureform/[a-z0-9_]+/return");
+                    if(nextClose){
+                        webview.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                nextClose = false;
+                                view.setVisibility(View.GONE);
+                                if(actionBar != null) actionBar.show();
+                                webview.loadUrl("about:blank");
+                                webview.clearHistory();
+                            }
+                        }, 2000);
+                    }
                     super.onPageStarted(wv, url, favicon);
                 }
             }

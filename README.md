@@ -4,7 +4,7 @@ Android implementation of [PayApi Secure Form](https://payapi.io/apidoc/#api-Pay
 
 ## Contents
 
-Includes an easy-to-use PayApi SDK for any Android application, working with Swift.
+Includes an easy-to-use PayApi SDK for any Android application.
 In order to use the SDK, please register for a free [PayApi user account](https://input.payapi.io)
 
 ## Installation
@@ -68,7 +68,7 @@ String message = "{" +
 
 ### Adding functionality to a button
 
-Method to open the Secure Form on any UIButton TouchUpInside event
+Method to open the Secure Form on any View or Button click event
 
 ```java
 secureForm.addSecureFormToButton(myButton, productData);

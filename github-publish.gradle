@@ -1,0 +1,56 @@
+apply plugin: 'maven'
+
+
+def VERSION_NUMBER= "1.0"
+
+repositories {
+    maven { url "https://raw.github.com/synergian/wagon-git/releases" }
+}
+
+configurations {
+    deployLibrary
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+
+    deployLibrary "ar.com.synergian:wagon-git:0.2.0"
+}
+
+task androidJavadocs(type: Javadoc) {
+    failOnError false
+    source = android.sourceSets.main.java.sourceFiles
+}
+
+task androidSourcesJar(type: Jar) {
+    classifier = 'sources'
+    from android.sourceSets.main.java.sourceFiles
+}
+
+task androidJavadocsJar(type: Jar, dependsOn: androidJavadocs) {
+    classifier = 'javadoc'
+    from androidJavadocs.destinationDir
+}
+
+artifacts {
+    archives androidSourcesJar
+    archives androidJavadocsJar
+}
+
+
+
+uploadArchives {
+    repositories.mavenDeployer {
+        configuration = configurations.deployLibrary
+        repository(url: 'git:releases://git@git.payapi.xyz:payapi-mobile/payapi-sdk-android.git')
+
+        //uniqueVersion = true
+
+        pom.project {
+            groupId = "io.payapi.payapisdk"
+            version = VERSION_NUMBER
+            artifactId = "payapi-sdk-android"
+            packaging "aar"
+        }
+    }
+}

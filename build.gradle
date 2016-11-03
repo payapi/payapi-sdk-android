@@ -1,4 +1,5 @@
 apply plugin: 'com.android.library'
+apply from: 'github-publish.gradle'
 
 android {
     compileSdkVersion 24
@@ -8,7 +9,7 @@ android {
         minSdkVersion 15
         targetSdkVersion 24
         versionCode 1
-        versionName "1.0"
+        versionName "1.0" //REMEMBER TO CHANGE VERSION AT github-publish.gradle before uploadArchives
     }
     buildTypes {
 
